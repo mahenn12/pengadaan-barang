@@ -25,10 +25,6 @@ class TransaksiPermintaanController extends Controller
 
     public function store(Request $request)
     {
-        $request->merge([
-            'total' => str_replace(['Rp ', '.', ','], ['', '', '.'], $request->total)
-        ]);
-
         $validated = $request->validate([
             'tanggal_permintaan' => 'required|date_format:Y-m-d', // Ubah format di sini
             'barang' => 'required|exists:barangs,id',
