@@ -26,7 +26,7 @@ class AddBarangToTransaksis extends Migration
     public function down()
     {
         Schema::table('transaksis', function (Blueprint $table) {
-            $table->string('nama_barang');            
+            $table->dropColumn('nama_barang');
         });
     }
 }

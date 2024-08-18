@@ -25,12 +25,12 @@ class TransaksiPermintaanController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'tanggal_permintaan' => 'required|date', // Ubah format di sini
+        $validated = $request->validate([
+            'tanggal_permintaan' => 'required|date_format:Y-m-d', // Ubah format di sini
             'barang' => 'required|exists:barangs,id',
-            'harga_jual' => 'required|string', // Validasi harga jual
+            // 'harga_jual' => 'required|string', // Validasi harga jual
             'jumlah_minta' => 'required|integer',
-            'total' => 'required|string', // Validasi total
+            // 'total' => 'required|numeric', // Validasi total
             'pelanggan' => 'required|exists:suppliers,id',
             'keterangan' => 'nullable|string',
             'status_permintaan' => 'required|string|max:255',
@@ -40,16 +40,21 @@ class TransaksiPermintaanController extends Controller
         ]);
 
         // Ubah format tanggal
-        $tgl_permintaan = Carbon::createFromFormat('d-m-Y', $request->tgl_permintaan)->format('Y-m-d');
+        // $tgl_permintaan = Carbon::createFromFormat('d-m-Y', $request->tgl_permintaan)->format('Y-m-d');
 
         // Ubah format total menjadi angka
-        $total = str_replace(['Rp ', '.', ','], ['', '', '.'], $request->total); // Menghapus 'Rp ', titik, dan mengganti koma dengan titik
+        // $total = str_replace(['Rp ', '.', ','], ['', '', '.'], $request->total); // Menghapus 'Rp ', titik, dan mengganti koma dengan titik
 
+        $validated['tgl_permintaan'] = $request->tanggal_permintaan;
+        $validated['barang_id'] = $request->barang;
+        $validated['total'] = Barang::findOrFail($request->barang)->harga_jual * $request->jumlah_minta;
+
+        unset(
+            $validated['tanggal_permintaan'],
+            $validated['barang'],
+        );
         // Simpan data
-        TransaksiPermintaan::create(array_merge($request->all(), [
-            'tgl_permintaan' => $tgl_permintaan,
-            'total' => $total // Simpan total sebagai angka
-        ]));
+        TransaksiPermintaan::create($validated);
 
         return redirect()->route('transaksi-permintaan.create')->with('success', 'Data berhasil ditambahkan.');
     }
