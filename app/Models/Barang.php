@@ -21,11 +21,6 @@ class Barang extends Model
         'harga_jual',
     ];
 
-    protected function hargaJualNumeric(): Attribute
-    {
-        return Attribute::get(fn() => round($this->harga_jual, 0));
-    }
-
     public function jenis()
     {
         return $this->belongsTo(Jenis::class, 'jenis_id');

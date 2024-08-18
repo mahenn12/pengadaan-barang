@@ -18,9 +18,6 @@
 @endsection
 
 @section('content')
-@foreach ($errors->all() as $message)
-    @dump($message)
-@endforeach
 <div class="panel panel-default col-md-12">
     <div class="panel-heading"> Form Input Transaksi Permintaan
         <a href="{{ route('transaksi-permintaan.index') }}" class="btn btn-default" style="float: right;"><span class="fa fa-arrow-left">&nbsp;</span> Kembali</a>
