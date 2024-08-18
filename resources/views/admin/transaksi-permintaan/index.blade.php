@@ -54,9 +54,9 @@
                 @foreach ($permintaan as $transaksi)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $transaksi->tanggal_permintaan }}</td>
-                    <td>{{ $transaksi->barang->nama }}</td>
-                    <td>{{ $transaksi->pelanggan->nama }}</td>
+                    <td>{{ $transaksi->tgl_permintaan }}</td>
+                    <td>{{ $transaksi->barang->nama_barang }}</td>
+                    <td>{{ $transaksi->supplier->nama_supplier }}</td>
                     <td>{{ $transaksi->jumlah_minta }}</td>
                     <td>{{ number_format($transaksi->total, 2) }}</td>
                     <td>{{ $transaksi->keterangan }}</td>

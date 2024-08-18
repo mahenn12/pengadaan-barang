@@ -14,8 +14,8 @@ class AddHargaToBarangsTable extends Migration
     public function up()
     {
         Schema::table('barangs', function (Blueprint $table) {
-            $table->decimal('harga_beli', 15, 2)->nullable(); // Menambahkan kolom harga beli
-            $table->decimal('harga_jual', 15, 2)->nullable(); // Menambahkan kolom harga jual
+            // $table->decimal('harga_beli', 15, 2)->nullable(); // Menambahkan kolom harga beli
+            // $table->decimal('harga_jual', 15, 2)->nullable(); // Menambahkan kolom harga jual
         });
     }
 
@@ -27,7 +27,7 @@ class AddHargaToBarangsTable extends Migration
     public function down()
     {
         Schema::table('barangs', function (Blueprint $table) {
-            $table->dropColumn(['harga_beli', 'harga_jual']);
+            // $table->dropColumn(['harga_beli', 'harga_jual']);
         });
     }
 }

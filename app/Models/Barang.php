@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Session;
 use DB;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Barang extends Model
 {
@@ -19,6 +20,12 @@ class Barang extends Model
         'harga_beli',
         'harga_jual',
     ];
+
+    protected function hargaJualNumeric(): Attribute
+    {
+        return Attribute::get(fn() => round($this->harga_jual, 0));
+    }
+
     public function jenis()
     {
         return $this->belongsTo(Jenis::class, 'jenis_id');
